@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,10 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get("/explore", [PostController::class, 'explore'])->name('explore');
-Route::get("/users/{user:username}", [UserController::class, 'index'])->middleware('auth')->name('users.profile');
+require __DIR__.'/auth.php';
 
+// Post
+Route::get("/explore", [PostController::class, 'explore'])->name('explore');
 Route::controller(PostController::class)->middleware("auth")->group(function() {
     Route::get('/', 'index')->name('posts.index');
     Route::get('/p/create', 'create')->name('posts.create');
@@ -30,12 +32,20 @@ Route::controller(PostController::class)->middleware("auth")->group(function() {
     Route::delete('/p/{post:slug}/delete', 'destroy')->name("posts.delete");
 });
 
+// Comment
 Route::post('/p/{post:slug}/comments', [CommentController::class, 'store'])->name('comments.store');
 
+// Like
+Route::get("/p/{post:slug}/like", LikeController::class)->middleware("auth")->name('posts.like');
+
+// Users
+Route::get("/users/{user:username}", [UserController::class, 'index'])->middleware('auth')->name('users.profile');
+Route::get("/users/{user:username}/follow", [UserController::class, 'follow'])->middleware('auth')->name('users.follow');
+Route::get("/users/{user:username}/unfollow", [UserController::class, 'unfollow'])->middleware('auth')->name('users.unfollow');
+
+// Profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-require __DIR__.'/auth.php';

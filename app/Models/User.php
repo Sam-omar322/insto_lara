@@ -55,7 +55,38 @@ class User extends Authenticatable
     }
 
     public function suggested_users() {
-        // take 5 users Except current user 
-        return User::whereNot("id", auth()->id())->get()->shuffle()->take(5);
+        // get the users that the authenticated user follows
+        $following = $this->following()->wherePivot('confirmed', true)->get();
+        return User::all()->diff($following)->except(auth()->id())->shuffle()->take(5);
+    }
+
+    public function likes() {
+        return $this->belongsToMany(Post::class, 'likes');
+    }
+
+    // Follows
+    public function following() {
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id')->withPivot('confirmed')->withTimestamps(); // pivot is a table that has user_id and following_user_id and confirmed.
+    }
+    public function followers() {
+        return $this->belongsToMany(User::class, 'follows', 'following_user_id', 'user_id')->withPivot('confirmed')->withTimestamps();
+    }
+    public function follow(User $user) {
+        if ($user->private_account) {
+            return $this->following()->attach($user);
+        }
+        return $this->following()->attach($user, ['confirmed' => true]);
+    }
+    public function unfollow(User $user) {
+        return $this->following()->detach($user);
+    }
+    public function isPending(User $user) {
+        return $this->following()->where('following_user_id', $user->id)->wherePivot('confirmed', false)->exists();
+    }
+    public function isFollower(User $user) {
+        return $this->followers()->where('user_id', $user->id)->wherePivot('confirmed', true)->exists();
+    }
+    public function isFollowing(User $user) {
+        return $this->following()->where('following_user_id', $user->id)->wherePivot('confirmed', true)->exists();
     }
 }

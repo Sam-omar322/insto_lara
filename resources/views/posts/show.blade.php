@@ -28,6 +28,10 @@
                             </button>
                         </form>
                     </div>
+                    @elseif (Auth::user()->isFollowing($post->user))
+                    <a href="/users/{{ $post->user->username }}/unfollow" class="text-blue-500 px-3 rounded text-center">{{ __("Unfollow") }}</a>
+                    @else
+                    <a href="/users/{{ $post->user->username }}/follow" class="text-blue-500 px-3 rounded text-center">{{ __("Follow") }}</a>
                     @endif
                 </div>
 

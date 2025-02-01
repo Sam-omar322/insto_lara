@@ -12,4 +12,15 @@ class UserController extends Controller
         $user = User::where('username', $username)->firstOrFail();
         return view('users.profile', compact('user'));
     }
+
+    public function follow(User $user)
+    {
+        auth()->user()->follow($user);
+        return back();
+    }
+    public function unfollow(User $user)
+    {
+        auth()->user()->unfollow($user);
+        return back();
+    }
 }
