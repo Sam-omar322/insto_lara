@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    public function index() {
+        return redirect("/");
+    }
     public function store(\App\Models\Post $post) {
         $data = request()->validate([
             'body' => 'required'

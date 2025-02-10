@@ -34,14 +34,17 @@ Route::controller(PostController::class)->middleware("auth")->group(function() {
 
 // Comment
 Route::post('/p/{post:slug}/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::get('/p/{post:slug}/comments/', [CommentController::class, 'index'])->name('comments.index');
 
 // Like
 Route::get("/p/{post:slug}/like", LikeController::class)->middleware("auth")->name('posts.like');
 
 // Users
-Route::get("/users/{user:username}", [UserController::class, 'index'])->middleware('auth')->name('users.profile');
-Route::get("/users/{user:username}/follow", [UserController::class, 'follow'])->middleware('auth')->name('users.follow');
-Route::get("/users/{user:username}/unfollow", [UserController::class, 'unfollow'])->middleware('auth')->name('users.unfollow');
+Route::get("/users/{user:username}", [UserController::class, 'index'])->name('users.profile');
+Route::middleware('auth')->group(function () {
+    Route::get("/users/{user:username}/follow", [UserController::class, 'follow'])->name('users.follow');
+    Route::get("/users/{user:username}/unfollow", [UserController::class, 'unfollow'])->name('users.unfollow');
+});
 
 // Profile
 Route::middleware('auth')->group(function () {

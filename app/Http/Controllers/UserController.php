@@ -15,8 +15,10 @@ class UserController extends Controller
 
     public function follow(User $user)
     {
-        auth()->user()->follow($user);
-        return back();
+        if (!auth()->user()->isFollowing($user) && !auth()->user()->isPending($user)) { // if the authenticated user is not following the user and the authenticated user is not pending to follow the user
+            auth()->user()->follow($user);
+        }
+        return redirect()->route('users.profile', $user->username);
     }
     public function unfollow(User $user)
     {
@@ -24,3 +26,4 @@ class UserController extends Controller
         return back();
     }
 }
+
