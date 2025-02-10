@@ -55,12 +55,21 @@
                     </div>
                 @endforeach
 
+            <div class="p-3 flex flex-row gap-3 border-t">
+                @livewire('like', ['post' => $post])
+
+                <a class="grow" onclick="document.getElementById('comment_input').focus()">
+                    <i class="bx bx-comment text-3xl hover:text-gray-400 cursor-pointer mr-3"></i>
+                </a>
+            </div>
+            @livewire('likedby', ['post' => $post])
+
             <!-- Send new Comment -->
             <div class="border-t-2">
                 <form action="/p/{{$post->slug}}/comments" method="POST">
                     @csrf
                     <div class="flex items-center px-4 py-2">
-                        <input type="text" name="body" class="w-full border-none me-2" placeholder="Add a comment">
+                        <input id="comment_input" type="text" name="body" class="w-full border-none me-2" placeholder="Add a comment">
                         <button type="submit" class="text-blue-500 font-bold">Post</button>
                     </div>
                 </form>

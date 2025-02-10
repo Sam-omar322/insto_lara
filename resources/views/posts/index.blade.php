@@ -52,6 +52,8 @@
                     @endforeach
                 </ul>
             </div>
+
+            @livewire('counter')
         </div>
     </div>
 </x-app-layout>
