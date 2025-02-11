@@ -89,4 +89,11 @@ class User extends Authenticatable
     public function isFollowing(User $user) {
         return $this->following()->where('following_user_id', $user->id)->wherePivot('confirmed', true)->exists();
     }
+
+    public function toggle_follow(User $user) {
+        $this->following()->toggle($user);
+        if (!$user->private_account) {
+            $this->following()->updateExistingPivot($user, ['confirmed' => true]);
+        }
+    }
 }

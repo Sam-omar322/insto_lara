@@ -44,7 +44,8 @@
                             <div class="text-gray-400 text-sm">{{ $suggested_user->name }}</div>
                         </div>
                         @if (Auth::user()->isPending($suggested_user))
-                        <a href="/users/{{ $suggested_user->username }}/unfollow" class="text-gray-500 font-bold">{{ __('Pending') }}</a>
+                        <span class="text-gray-500 font-bold mx-2">{{ __('Pending') }}</span>
+                        <a href="/users/{{ $suggested_user->username }}/unfollow" class="text-red-500">{{ __('Cancel') }}</a>
                         @else
                         <a href="/users/{{ $suggested_user->username }}/follow" class="text-blue-500 font-bold">{{ __('Follow') }}</a>
                         @endif
@@ -52,8 +53,6 @@
                     @endforeach
                 </ul>
             </div>
-
-            @livewire('counter')
         </div>
     </div>
 </x-app-layout>

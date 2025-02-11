@@ -18,7 +18,7 @@ class UserController extends Controller
         if (!auth()->user()->isFollowing($user) && !auth()->user()->isPending($user)) { // if the authenticated user is not following the user and the authenticated user is not pending to follow the user
             auth()->user()->follow($user);
         }
-        return redirect()->route('users.profile', $user->username);
+        return back();
     }
     public function unfollow(User $user)
     {

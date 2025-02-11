@@ -17,19 +17,14 @@
                     <a href="/profile" class="w-44 border text-sm font-bold py-1 rounded-md border-neutral-300 text-center">
                         {{ __('Edit Profile') }}
                     </a>
-                @elseif(auth()->user()->isFollowing($user))
-                    <a href="/users/{{ $user->username }}/unfollow" class="w-30 bg-blue-500 text-white px-3 py-1 rounded text-center self-start">{{ __("Unfollow") }}</a>
-                @elseif(auth()->user()->isPending($user))
-                    <div class="flex gap-3">
-                        <span class="w-30 bg-gray-400 text-white px-3 py-1 rounded text-center self-start">{{ __('Pending') }}</span>
-                        <a href="/users/{{ $user->username }}/unfollow" class="w-30 bg-gray-200 text-red-400 px-3 py-1 rounded text-center self-start font-bold2">{{ __("Cancel") }}</a>
-                    </div>
-                @else
-                    <a href="/users/{{ $user->username }}/follow" class="w-30 bg-blue-500 text-white px-3 py-1 rounded text-center self-start">{{ __('Follow') }}</a>
+                    @else
+                    <livewire:FollowButton :userId="$user->id" classes="bg-blue-500 text-white px-4 py-2" pendding_classes="text-white px-4 py-2 bg-gray-500" cancel_classes="text-red-500 px-4 py-2 border border-red-500" />
                     @endif
-            @else
-            <a href="/users/{{ $user->username }}/follow" class="w-30 bg-blue-500 text-white px-3 py-1 rounded text-center self-start">{{ __('Follow') }}</a>
             @endauth
+
+            @guest
+            <a href="/users/{{ $user->username }}/follow" class="w-30 bg-blue-500 text-white px-3 py-1 rounded text-center self-start">{{ __('Follow') }}</a>
+            @endguest
         </div>
 
         {{-- User Info --}}
@@ -53,12 +48,7 @@
                     </div>
                     <span class='text-neutral-500 md:text-black'>{{ $user->followers()->count() > 1 ? 'Followers' : 'Follower' }}</span>
                 </li>
-                <li class="flex flex-col md:flex-row text-center rtl:ml-5 gap-2">
-                    <div class="md:ltr:mr-1 md:rtl:ml-1 font-bold md:font-normal">
-                        {{ $user->following()->wherePivot('confirmed', true)->get()->count() }}
-                    </div>
-                    <span class='text-neutral-500 md:text-black'>{{ __('Following') }}</span>
-                </li>
+                <livewire:following :userId="$user->id" /> 
             </ul>
         </div>
     </div>

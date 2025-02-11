@@ -28,10 +28,8 @@
                             </button>
                         </form>
                     </div>
-                    @elseif (Auth::user()->isFollowing($post->user))
-                    <a href="/users/{{ $post->user->username }}/unfollow" class="text-blue-500 px-3 rounded text-center">{{ __("Unfollow") }}</a>
                     @else
-                    <a href="/users/{{ $post->user->username }}/follow" class="text-blue-500 px-3 rounded text-center">{{ __("Follow") }}</a>
+                        <livewire:FollowButton :userId="$post->user->id" :post="$post" classes="text-blue-400 px-2" cancel_classes="text-red-500" />
                     @endif
                 </div>
 
