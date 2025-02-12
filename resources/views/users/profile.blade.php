@@ -46,7 +46,7 @@
                     <div class="md:ltr:mr-1 md:rtl:ml-1 font-bold md:font-normal">
                         {{ $user->followers()->wherePivot('confirmed', true)->get()->count() }}
                     </div>
-                    <span class='text-neutral-500 md:text-black'>{{ $user->followers()->count() > 1 ? 'Followers' : 'Follower' }}</span>
+                    <button onclick="Livewire.dispatch('openModal', { component: 'follower-modal', arguments: { userId: {{ $user->id }} }})" class='text-neutral-500 md:text-black'>{{ $user->followers()->count() > 1 ? 'Followers' : 'Follower' }}</button>
                 </li>
                 <livewire:following :userId="$user->id" /> 
             </ul>

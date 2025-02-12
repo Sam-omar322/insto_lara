@@ -9,7 +9,7 @@ class Following extends Component
 {
     protected $user;
     public $userId;
-    protected $listeners = ['unfollowUser', ];
+    protected $listeners = ['unfollowUser', 'getCountProperty'];
     // public function mount($user)
     // {
     //     $this->user = $user;
@@ -20,7 +20,6 @@ class Following extends Component
         $this->user = User::find($this->userId);
         return $this->user->following()->wherePivot('confirmed', true)->get()->count();
     }
-
 
     public function render()
     {
