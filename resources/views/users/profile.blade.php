@@ -56,7 +56,7 @@
     {{-- Bottom --}}
     @if($user->posts()->count() > 0 and ($user->private_account == false or (auth()->check() && (auth()->id() == $user->id or auth()->user()->isFollowing($user)))))
         <div class="grid grid-cols-3 gap-1 my-5">
-            @foreach($user->posts as $post)
+            @foreach($user->posts()->orderBy('created_at', 'desc')->get() as $post)
                 <a href="/p/{{$post->slug}}" class="aspect-square block w-full">
                     <img src="{{ asset('storage/'.$post->image) }}" alt="{{$post->description}}" class="w-full aspect-square object-cover">
                 </a>

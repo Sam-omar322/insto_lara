@@ -96,4 +96,16 @@ class User extends Authenticatable
             $this->following()->updateExistingPivot($user, ['confirmed' => true]);
         }
     }
+
+    public function pending_followers() {
+        return $this->followers()->where('confirmed', false);
+    }
+
+    public function confirm(User $user) {
+        return $this->followers()->updateExistingPivot($user, ['confirmed' => true]);
+    }
+
+    public function deleteFollowerRequest(User $user) {
+        return $this->followers()->detach($user);
+    }
 }

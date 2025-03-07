@@ -10,11 +10,7 @@ class Following extends Component
     protected $user;
     public $userId;
     protected $listeners = ['unfollowUser', 'getCountProperty'];
-    // public function mount($user)
-    // {
-    //     $this->user = $user;
-    //     $this->userId = $user->id;
-    // }
+
     public function getCountProperty()
     {
         $this->user = User::find($this->userId);

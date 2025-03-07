@@ -18,7 +18,8 @@
                     @if ($post->user->id == Auth::user()->id)
                     <div class="flex">
                         <!-- Edit post -->
-                         <a class="mx-2" href="/p/{{$post->slug}}/edit"><i class='bx bx-edit-alt'></i></a>
+                        <button class="mx-2" onclick="Livewire.dispatch('openModal', { component: 'edit-post-modal', arguments: [{{ $post->id }}] })">
+                        <i class='bx bx-edit-alt'></i></button>
                         <!-- Delete post -->
                         <form action="/p/{{$post->slug}}/delete" method="POST">
                             @csrf
