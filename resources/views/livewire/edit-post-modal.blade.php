@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="mt-3">
-      <textarea placeholder="{{ __('Write description...') }}" wire:model="description"
+      <textarea placeholder="{{ __('Write description') }}" wire:model="description"
                 class="ring-none border-none h-64 w-full mb-2 rounded"></textarea>
             @error('description')
             <span class="text-sm text-red-500 py-5">{{ $message }}</span>

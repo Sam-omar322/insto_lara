@@ -6,7 +6,7 @@
         <!-- Right Side -->
          <div class="hidden w-[40rem] lg:flex lg:flex-col pt-4">
             <div class="flex flex-row text-sm">
-                <div class="mr-5">
+                <div class="ltr:mr-4 rtl:ml-4">
                     <a href="/users/{{ Auth::user()->username }}">
                         <x-user_avatar :user="Auth::user()" />
                     </a>
@@ -18,11 +18,11 @@
             </div>
 
             <div class="mt-5">
-                <h3 class="text-gray-500 font-bold">{{ __('Suggestions For you') }}</h3>
+                <h3 class="text-gray-500 font-bold">{{ __('Suggestions For You') }}</h3>
                 <ul>
                     @foreach ($suggested_users as $suggested_user)
                     <li class="flex flex-row my-5 text-sm justify-items-center">
-                        <div class="mr-5">
+                        <div class="ltr:mr-4 rtl:ml-4">
                             <a href="/users/{{ $suggested_user->username }}">
                             <img class="w-8 h-8 rounded-full object-cover" src="{{ $suggested_user->image ? (Str::contains($suggested_user->image, 'users/') ? asset('storage/' . $suggested_user->image) : 'https://ui-avatars.com/api/?name=' . urlencode($suggested_user->name)) : 'https://ui-avatars.com/api/?name=Guest' }}" alt="User Avatar">
                             </a>

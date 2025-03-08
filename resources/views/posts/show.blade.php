@@ -12,7 +12,7 @@
                     <div class="flex items-center me-3">
                         <a class="flex items-center" href="/users/{{ $post->user->username }}">
                             <img class="w-8 h-8 rounded-full object-cover" src="{{ Str::contains($post->user->image, 'users/') ? asset('storage/' . $post->user->image) : 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) }}" alt="User Avatar">
-                            <span class="ml-3">{{ $post->user->name }}</span>
+                            <span class="ltr:ml-3 rtl:mr-3">{{ $post->user->name }}</span>
                         </a>
                     </div>
                     @if ($post->user->id == Auth::user()->id)
@@ -58,7 +58,7 @@
                 @livewire('like', ['post' => $post])
 
                 <a class="grow" onclick="document.getElementById('comment_input').focus()">
-                    <i class="bx bx-comment text-3xl hover:text-gray-400 cursor-pointer mr-3"></i>
+                    <i class="bx bx-comment text-3xl hover:text-gray-400 cursor-pointer"></i>
                 </a>
             </div>
             @livewire('likedby', ['post' => $post])
@@ -68,8 +68,8 @@
                 <form action="/p/{{$post->slug}}/comments" method="POST">
                     @csrf
                     <div class="flex items-center px-4 py-2">
-                        <input id="comment_input" type="text" name="body" class="w-full border-none me-2" placeholder="Add a comment">
-                        <button type="submit" class="text-blue-500 font-bold">Post</button>
+                        <input id="comment_input" type="text" name="body" class="w-full border-none me-2" placeholder="{{__('Add a comment')}}">
+                        <button type="submit" class="text-blue-500 font-bold">{{ __('Comment') }}</button>
                     </div>
                 </form>
             </div>

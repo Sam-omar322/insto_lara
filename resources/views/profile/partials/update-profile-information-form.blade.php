@@ -65,6 +65,15 @@
             @endif
         </div>
 
+        <div class="col-span-6 sm:col-span-3">
+            <label for="lang" class="block text-sm font-medium text-gray-700">{{ __('Language') }}</label>
+            <select id="lang" name="lang"
+                    class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 ltr:px-3 rtl:px-8 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                <option value="ar" {{ app()->getLocale() == 'ar' ? 'selected' : '' }}>العربية</option>
+                <option value="en" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>English</option>
+            </select>
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

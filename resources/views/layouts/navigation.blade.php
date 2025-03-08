@@ -19,12 +19,17 @@
                 </div> -->
             </div>
 
+            <!-- Search -->
+            <div class="hidden sm:flex sm:items-center">
+                @livewire('search')
+            </div>
+
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 @auth
                     <div class="flex items-center space-x-3">
-                        <div class="space-x-3 text-[1.6rem] mr-2 leading-5">
-                            <a href="{{ route('posts.index') }}">
+                        <div class="space-x-3 text-[1.6rem] ltr:mr-2 rtl:ml-2 leading-5">
+                            <a class="rtl:ml-2 ltr:mr-2" href="{{ route('posts.index') }}">
                                 {!! url()->current() == route('posts.index') 
                                     ? '<i class="bx bxs-home-alt-2"></i>'
                                     : '<i class="bx bx-home-alt-2"></i>' !!}
@@ -52,7 +57,7 @@
 
                     <x-dropdown width="96">
                         <x-slot name="trigger">
-                            <button class="space-x-3 text-[1.6rem] ml-2 mt-1 leading-5 pr-3">
+                            <button class="space-x-3 text-[1.6rem] ml-2 leading-5">
                                 <div class="relative">
                                     <i class="bx bxs-inbox"></i>
                                 </div>

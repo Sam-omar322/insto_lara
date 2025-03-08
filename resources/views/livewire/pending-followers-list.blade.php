@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between p-2 border-b border-neutral-200">
             <div class="flex items-center">
             <img class="w-8 h-8 rounded-full object-cover" src="{{ $pending->image ? (Str::contains($pending->image, 'users/') ? asset('storage/' . $pending->image) : 'https://ui-avatars.com/api/?name=' . urlencode($pending->name)) : 'https://ui-avatars.com/api/?name=Guest' }}" alt="User Avatar">
-            <a href="/users/{{ $pending->username }}" class="ml-2">{{ $pending->username }}</a>
+            <a href="/users/{{ $pending->username }}" class="ltr:ml-2 rtl:mr-2">{{ $pending->username }}</a>
             </div>
             
             <div class="flex gap-2">

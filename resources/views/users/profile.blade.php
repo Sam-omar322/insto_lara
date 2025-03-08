@@ -40,13 +40,13 @@
                     <div class="md:ltr:mr-1 md:rtl:ml-1 font-bold md:font-normal">
                         {{ $user->posts->count() }}
                     </div>
-                    <span class='text-neutral-500 md:text-black'>{{ $user->posts->count() > 1 ? 'posts' : 'post' }}</span>
+                    <span class='text-neutral-500 md:text-black'>{{ $user->posts->count() > 1 ? __('Posts') : __('Post') }}</span>
                 </li>
                 <li class="flex flex-col md:flex-row text-center rtl:ml-5 gap-2">
                     <div class="md:ltr:mr-1 md:rtl:ml-1 font-bold md:font-normal">
                         {{ $user->followers()->wherePivot('confirmed', true)->get()->count() }}
                     </div>
-                    <button onclick="Livewire.dispatch('openModal', { component: 'follower-modal', arguments: { userId: {{ $user->id }} }})" class='text-neutral-500 md:text-black'>{{ $user->followers()->count() > 1 ? 'Followers' : 'Follower' }}</button>
+                    <button onclick="Livewire.dispatch('openModal', { component: 'follower-modal', arguments: { userId: {{ $user->id }} }})" class='text-neutral-500 md:text-black'>{{ $user->followers()->count() > 1 ? __('Followers') : __('Follower') }}</button>
                 </li>
                 <livewire:following :userId="$user->id" /> 
             </ul>

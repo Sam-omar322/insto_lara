@@ -20,15 +20,13 @@
             <div class="flex justify-center items-center mx-3">
                 <x-user_avatar :user="Auth::user()" />
             </div>
-            <div class="flex flex-col grow">
-                <div class="font-bold">
-                    <a href="/{{ auth()->user()->username }}">{{ auth()->user()->username }}</a>
-                </div>
+            <div class="font-bold">
+                <a href="/{{ auth()->user()->username }}">{{ auth()->user()->username }}</a>
             </div>
         </div>
         <div class="mt-3">
       <textarea name="description" id="description" cols="30" rows="10"
-                placeholder="{{ __('Write description...') }}" class="border-none w-full" wire:model="description"></textarea>
+                placeholder="{{ __('Write description') }}" class="border-none w-full" wire:model="description"></textarea>
             @error('description')
                 <span class="text-sm text-red-500 py-5">{{ $message }}</span>
             @enderror

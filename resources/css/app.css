@@ -19,3 +19,7 @@
         @apply border-t border-t-gray-200 p-3 mt-5;
     }
 }
+
+* {
+    @apply font-body;
+}
